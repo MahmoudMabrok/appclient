@@ -1,6 +1,5 @@
 package com.mahmoudmabrok.appclient;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             } catch (IOException e) {
-                e.printStackTrace();
                 Log.d(TAG, "run: " + e.getMessage());
             }
         }
@@ -79,14 +77,12 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "input: " + message);
 
                         if (message.equals("reject")) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(MainActivity.this,
-                                            "Client:: get Reject from server",
-                                            Toast.LENGTH_SHORT)
-                                            .show();
-                                }
+                            runOnUiThread(() -> {
+                                Toast.makeText(MainActivity.this,
+                                        "Client:: get Reject from server",
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+
                             });
                         } else {
                             Intent intent = new Intent(MainActivity.this, MainActivity.class);
@@ -96,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.d(TAG, "run: " + e.getMessage());
                 }
             }
         }
