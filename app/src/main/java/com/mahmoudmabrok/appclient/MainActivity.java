@@ -45,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
     class ConnectThread implements Runnable {
         public void run() {
             Socket socket = null;
-            try {
-                socket = new Socket(InetAddress.getByName(SERVER_IP), SERVER_PORT);
+            try (socket = new Socket(InetAddress.getByName(SERVER_IP), SERVER_PORT)){
                 Log.d(TAG, "run:connected  ");
                 output = new PrintWriter(socket.getOutputStream());
                 input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     assert socket != null;
                     socket.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                     Log.d(TAG, "run: " + e.getMessage());
                 }
             }
         }
